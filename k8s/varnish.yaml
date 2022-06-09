@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: varnish
+  namespace: magento
+spec:
+  ports:
+    - port: 80
+      nodePort: 30081
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: varnish
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: varnish
+  namespace: magento
+spec:
+  selector:
+    matchLabels:
+      app: varnish
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: varnish
+    spec:
+      volumes:
+      - name: varnish-config
+        configMap:
+          name: varnish-vcl
+      containers:
+      - image: varnish:7.0
+        name: varnish
+        ports:
+        - containerPort: 80
+          protocol: TCP 
+        resources:
+          requests:
+            memory: 1Gi
+        volumeMounts:
+        - name: varnish-config
+          mountPath: /etc/varnish

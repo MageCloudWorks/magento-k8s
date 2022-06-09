@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-session
+  namespace: magento
+spec:
+  selector:
+    matchLabels:
+      app: redis-session
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis-session
+    spec:
+      containers:
+      - image: redis:6.2
+        name: redis-session
+        ports:
+        - containerPort: 6379
+          protocol: TCP
+        resources:
+          requests:
+            memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-session
+  name: redis-session
+  namespace: magento
+spec:
+  ports:
+  - name: "6379"
+    port: 6379
+    protocol: TCP
+    targetPort: 6379
+  selector:
+    app: redis-session
+  type: ClusterIP

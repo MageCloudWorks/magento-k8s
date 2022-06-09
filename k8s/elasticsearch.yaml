@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: magento
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - image: elasticsearch:7.17.2
+        name: elasticsearch
+        env:
+        - name:  "discovery.type"
+          value: "single-node"
+        ports:
+        - containerPort: 9200
+          protocol: TCP
+        resources:
+          requests:
+            memory: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: magento
+spec:
+  ports:
+  - name: "9200"
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  selector:
+    app: elasticsearch
+  type: ClusterIP

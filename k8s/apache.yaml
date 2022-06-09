@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache
+  namespace: magento
+spec:
+  ports:
+    - port: 80
+      nodePort: 30080
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: apache
+  sessionAffinity: None
+  type: NodePort
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: magento
+  name: apache-claim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache
+  namespace: magento
+spec:
+  selector:
+    matchLabels:
+      app: apache
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      volumes:
+      - name: apache-storage
+        persistentVolumeClaim:
+          claimName: apache-claim
+      containers:
+      - image: magecloudworks/magento-webserver
+        name: apache
+        ports:
+        - containerPort: 80
+          protocol: TCP 
+        volumeMounts:
+        - mountPath: "/var/www/html"
+          name: apache-storage
+        resources:
+          requests:
+            memory: 2Gi
