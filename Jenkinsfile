@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                kubectl get all -A 
+                sh 'kubectl get all -A' 
             }
         }
         stage('Test') {
