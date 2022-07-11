@@ -53,3 +53,6 @@ Open in your browser http://192.168.49.2:30081
 
 # Jenkins
 ## Prerequistes 
+- Jenkins Kubernetes CLI Plugin 
+- kubectl available on Jenkins build node
+- If you use a Jenkins Agent image (https://hub.docker.com/r/magecloudworks/jenkins-agent) ensure the Pod Template, Containers, Container Template, Name is "jnlp". 
