@@ -1,7 +1,8 @@
 node {
   withKubeConfig(credentialsId: 'dev') {
     stage ('Checkout'){
-		  checkout scm
+	    checkout scm
+	    sh "ls"
     }
     stage('Checkout and Install Magento to Kubernetes') {
         // Clean up anything in the namespace
