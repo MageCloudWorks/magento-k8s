@@ -1,11 +1,11 @@
 node {
   withKubeConfig(credentialsId: 'dev') {
     stage('Checkout and Install Magento to Kubernetes') {
-        # Clean up anything in the namespace
+        // Clean up anything in the namespace
         sh "kubectl get namespaces magento || kubectl delete namespace magento"
-        # Create pods in Kubernetes
+        // Create pods in Kubernetes
         sh "deploy.sh"
-        # Install Magento
+        // Install Magento
         sh "fresh-install.sh"
     } 
     stage('Stand Up Test'){
