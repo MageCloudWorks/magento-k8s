@@ -1,13 +1,13 @@
 node {
-  environment {
-	  REPOMAGENTOCOM_USER = credentials('REPOMAGENTOCOM_USER')
-	  REPOMAGENTOCOM_PASS = credentials('REPOMAGENTOCOM_PASS')
-  }
   withKubeConfig(credentialsId: 'dev') {
     stage ('Checkout'){
 	    checkout scm
     }
     stage('Checkout and Install Magento to Kubernetes') {
+	environment {
+	  REPOMAGENTOCOM_USER = credentials('REPOMAGENTOCOM_USER')
+	  REPOMAGENTOCOM_PASS = credentials('REPOMAGENTOCOM_PASS')
+        }
         // Clean up anything in the namespace
 	sh "kubectl get namespaces"
         sh "kubectl get namespaces magento && kubectl delete namespace magento"
