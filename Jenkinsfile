@@ -16,8 +16,11 @@ node {
 	sleep 60 // wait for pods to start
         // Install Magento
         sh "./fresh-install.sh"
-	// If repo.magento.com user name is set then install sample data
-	sh "[ ! -z $REPOMAGENTOCOM_USER ] && ./install-sample-data.sh"
+	// Install sample data, requires Access key https://marketplace.magento.com/customer/accessKeys/ stroed in username/password credential REPOMAGENTOCOM
+        withCredentials([usernamePassword(credentialsId: 'REPOMAGENTOCOM', passwordVariable: 'REPOMAGENTOCOM_PASS', usernameVariable: 'REPOMAGENTOCOM_USER')]) {
+          sh "./install-sample-data.sh"
+	}
+	
     } 
     stage('Stand Up Test'){
         
