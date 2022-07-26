@@ -13,6 +13,7 @@ node {
         sh "kubectl get namespaces magento && kubectl delete namespace magento"
         // Create pods in Kubernetes
         sh "./deploy.sh"
+	sleep 60 // wait for pods to start
         // Install Magento
         sh "./fresh-install.sh"
 	// If repo.magento.com user name is set then install sample data
