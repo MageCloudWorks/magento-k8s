@@ -1,4 +1,8 @@
 node {
+  environment {
+	  REPOMAGENTOCOM_USER = credentials('REPOMAGENTOCOM_USER')
+	  REPOMAGENTOCOM_PASS = credentials('REPOMAGENTOCOM_PASS')
+  }
   withKubeConfig(credentialsId: 'dev') {
     stage ('Checkout'){
 	    checkout scm
@@ -11,6 +15,8 @@ node {
         sh "./deploy.sh"
         // Install Magento
         sh "./fresh-install.sh"
+	// If repo.magento.com user name is set then install sample data
+	sh "[ ! -z $REPOMAGENTOCOM_USER ] && ./install-sample-data.sh"
     } 
     stage('Stand Up Test'){
         
