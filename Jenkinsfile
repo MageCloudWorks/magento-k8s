@@ -4,10 +4,6 @@ node {
 	    checkout scm
     }
     stage('Checkout and Install Magento to Kubernetes') {
-	environment {
-	  REPOMAGENTOCOM_USER = credentials('REPOMAGENTOCOM_USER')
-	  REPOMAGENTOCOM_PASS = credentials('REPOMAGENTOCOM_PASS')
-        }
         // Clean up anything in the namespace
 	sh "kubectl get namespaces"
         sh "kubectl get namespaces magento && kubectl delete namespace magento"
@@ -23,6 +19,10 @@ node {
 	
     } 
     stage('Stand Up Test'){
+	// get ip address of first node of cluster to create URL to access the Magento instance
+	def K8IP = sh(script: 'kubectl get nodes -o jsonpath={.items[0].status.addresses[?\(@.type==\"InternalIP\"\)].address} ', returnStdout: true)
+	// 30081 is via Varnish cache, to access direct use 30080
+	sh "curl -x http://$K8IP:30081/"
         
     }
     stage('Unit Tests'){
