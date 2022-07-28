@@ -19,7 +19,7 @@ node {
 	
     } 
     stage('Stand Up Test'){
-	sh './standup-test.sh'
+	sh 'sh ./standup-test.sh'
         
     }
     stage('Unit Tests'){
