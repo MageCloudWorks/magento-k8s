@@ -62,4 +62,3 @@ Open in your browser http://192.168.49.2:30081
 Create access key https://marketplace.magento.com/customer/accessKeys/
 
 Then in Jenkins create "Username with password" Credential REPOMAGENTOCOM
-
