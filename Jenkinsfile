@@ -3,6 +3,9 @@ node {
     stage ('Checkout'){
 	    checkout scm
     }
+    stage ('Lint'){
+	sh ""
+    }
     stage('Checkout and Install Magento to Kubernetes') {
         // Clean up anything in the namespace
 	sh "kubectl get namespaces"
@@ -23,7 +26,7 @@ node {
         
     }
     stage('Unit Tests'){
-        
+      sh 'kubectl exec -n magento deployment/apache -it -- sudo -u www-data php /var/www/html/bin/magento setup:upgrade dev:tests:run unit' 
     }
     stage('Acceptance Tests'){
         
