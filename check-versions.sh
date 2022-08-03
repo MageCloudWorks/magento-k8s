@@ -22,11 +22,11 @@ function check () {
   echo $1 $2 $3
 }
 
-check("Composer", $COMPOSER_REQ, $COMPOSER_VER)
-check("Elastic Search", $ELASTICSEARCH, $ELASTICSEARCH_VER)
-check("Mariadb", $MARIABD_REQ, $MARIADB_VER)
-check("PHP", $PHP_REQ, $PHP_VER)
-#check("RabbitMQ", $RABBITMQ_REQ, $RABBITMQ_VER)
-check("Redis", $REDIS_REQ, $REDIS_VER)
-check("Varnish", $VARNISH_REQ, $VARNISH_VER)
-check("Apache", $APACHE_REQ, $APACHE_VER)
+check "Composer" $COMPOSER_REQ, $COMPOSER_VER
+check "Elastic Search" $ELASTICSEARCH $ELASTICSEARCH_VER
+check "Mariadb" $MARIABD_REQ $MARIADB_VER
+check "PHP" $PHP_REQ $PHP_VER
+#check "RabbitMQ" $RABBITMQ_REQ $RABBITMQ_VER
+check "Redis" $REDIS_REQ $REDIS_VER
+check "Varnish" $VARNISH_REQ $VARNISH_VER
+check "Apache" $APACHE_REQ $APACHE_VER

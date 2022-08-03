@@ -13,9 +13,12 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg && \
     sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ buster main" > /etc/apt/sources.list.d/php.list'
 
+# Install specific version of composer
+RUN curl -sSLo /usr/bin/composer https://getcomposer.org/download/2.1.14/composer.phar && \
+    chmod +x /usr/bin/composer
+
 RUN apt-get update && apt-get install -y \
     apache2 \
-    composer \
     curl \
     gzip \
     libapache2-mod-php \
