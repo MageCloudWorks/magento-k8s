@@ -23,7 +23,7 @@ function check () {
 }
 
 check "Composer" $COMPOSER_REQ $COMPOSER_VER
-check "Elastic Search" $ELASTICSEARCH $ELASTICSEARCH_VER
+check "Elastic Search" $ELASTICSEARCH_REQ $ELASTICSEARCH_VER
 check "Mariadb" $MARIADB_REQ $MARIADB_VER
 check "PHP" $PHP_REQ $PHP_VER
 #check "RabbitMQ" $RABBITMQ_REQ $RABBITMQ_VER
