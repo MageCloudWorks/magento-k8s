@@ -13,9 +13,7 @@ node {
         // Create pods in Kubernetes
         sh "./deploy.sh"
 	sleep 60 // wait for pods to start
-        step("check versions"){
-          sh "./check-versions.sh"
-	}
+        sh "./check-versions.sh"
         // Install Magento
         sh "./fresh-install.sh"
 	// Install sample data, requires Access key https://marketplace.magento.com/customer/accessKeys/ stroed in username/password credential REPOMAGENTOCOM
