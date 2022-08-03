@@ -14,7 +14,7 @@ ELASTICSEARCH_VER=$(kubectl exec -n magento deployment/apache -it -- curl -s 'ht
 MARIADB_VER=$(kubectl exec -n magento deployment/mariadb -it -- mysqld -V | awk '{print $3}' | cut -c1-4)
 PHP_VER=$(kubectl exec -n magento deployment/apache -it -- php -v | head -1 | awk '{print $2}' | cut -c1-3)
 RABBITMQ_VER=
-REDIS_VER=$(kubectl exec -n magento deployment/redis-session -it -- redis-server -v |  awk '{print $3}' | cut -c1-4)
+REDIS_VER=$(kubectl exec -n magento deployment/redis-session -it -- redis-server -v |  awk '{print $3}' | cut -c3-5)
 VARNISH_VER=$(kubectl exec -n magento deployment/varnish -it -- varnishd -V 2>&1  | head -1 |  awk '{print $2}' | cut -c10-12)
 APACHE_VER=$(kubectl exec -n magento deployment/apache -it -- apache2 -v | awk  '{print $3}' | cut -c8-10 | head -1)
 
@@ -22,9 +22,9 @@ function check () {
   echo $1 $2 $3
 }
 
-check "Composer" $COMPOSER_REQ, $COMPOSER_VER
+check "Composer" $COMPOSER_REQ $COMPOSER_VER
 check "Elastic Search" $ELASTICSEARCH $ELASTICSEARCH_VER
-check "Mariadb" $MARIABD_REQ $MARIADB_VER
+check "Mariadb" $MARIADB_REQ $MARIADB_VER
 check "PHP" $PHP_REQ $PHP_VER
 #check "RabbitMQ" $RABBITMQ_REQ $RABBITMQ_VER
 check "Redis" $REDIS_REQ $REDIS_VER
