@@ -26,7 +26,7 @@ node {
         
     }
     stage('Unit Tests'){
-      sh 'kubectl exec -n magento deployment/apache -it -- sudo -u www-data php /var/www/html/bin/magento setup:upgrade dev:tests:run unit' 
+      sh 'kubectl exec -n magento deployment/apache -it -- sudo -u www-data php /var/www/html/bin/magento dev:tests:run unit' 
     }
     stage('Acceptance Tests'){
         
