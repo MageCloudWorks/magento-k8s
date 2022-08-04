@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     gzip \
     libapache2-mod-php \
+    libxml2=2.9.4+dfsg1-7+deb10u4 \
     lsof \
     php8.1 \
     php8.1-bcmath \
@@ -44,7 +45,10 @@ RUN apt-get update && apt-get install -y \
     php8.1-xmlrpc \
     php8.1-xsl \
     php8.1-zip \
+    p7zip \
     sudo \
+    unzip \
+    zip \
     && rm -rf /var/lib/apt/lists/*
 # php-json depricated in 8.1
 
