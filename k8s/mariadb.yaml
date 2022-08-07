@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,10 +16,10 @@ spec:
         app: mariadb
     spec:
       containers:
-      - image: mariadb:10.4
-        name: mariadb
-        env:
-        - name:  MARIADB_USER
+        - image: mariadb:10.4
+          name: mariadb
+          env:
+        - name: MARIADB_USER
           value: "exmaple-user"
         - name: MARIADB_PASSWORD
           value: "my_cool_secret"
@@ -26,11 +27,11 @@ spec:
           value: "my_super_secret"
         - name: MARIADB_DATABASE
           value: "magento"
-        ports:
-        - containerPort: 3306
-          protocol: TCP
-        resources:
-          requests:
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          resources:
+            requests:
             memory: 1Gi
 ---
 apiVersion: v1
@@ -42,11 +43,10 @@ metadata:
   namespace: magento
 spec:
   ports:
-  - name: "3306"
-    port: 3306
-    protocol: TCP
-    targetPort: 3306
+    - name: "3306"
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
   selector:
     app: mariadb
   type: ClusterIP
-

@@ -1,7 +1,4 @@
 #!/bin/bash 
-# Work around for microk8s
-shopt -s expand_aliases
-source ~/.bash_aliases
 
 echo Get Magento and extract
 kubectl exec -n magento deployment/apache -it -- bash -c 'curl -L  https://github.com/magento/magento2/archive/refs/tags/2.4.4.tar.gz| tar xz --strip-components=1 -C /var/www/html/'

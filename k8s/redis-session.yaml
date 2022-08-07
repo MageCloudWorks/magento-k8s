@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,14 +16,14 @@ spec:
         app: redis-session
     spec:
       containers:
-      - image: redis:6.2
-        name: redis-session
-        ports:
-        - containerPort: 6379
-          protocol: TCP
-        resources:
-          requests:
-            memory: 1Gi
+        - image: redis:6.2
+          name: redis-session
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+          resources:
+            requests:
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -33,10 +34,10 @@ metadata:
   namespace: magento
 spec:
   ports:
-  - name: "6379"
-    port: 6379
-    protocol: TCP
-    targetPort: 6379
+    - name: "6379"
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
   selector:
     app: redis-session
   type: ClusterIP

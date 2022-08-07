@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -43,18 +44,18 @@ spec:
         app: apache
     spec:
       volumes:
-      - name: apache-storage
-        persistentVolumeClaim:
-          claimName: apache-claim
+        - name: apache-storage
+          persistentVolumeClaim:
+            claimName: apache-claim
       containers:
-      - image: magecloudworks/magento-webserver
-        name: apache
-        ports:
-        - containerPort: 80
-          protocol: TCP 
-        volumeMounts:
-        - mountPath: "/var/www/html"
-          name: apache-storage
-        resources:
-          requests:
-            memory: 2Gi
+        - image: magecloudworks/magento-webserver
+          name: apache
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: "/var/www/html"
+              name: apache-storage
+          resources:
+            requests:
+              memory: 2Gi

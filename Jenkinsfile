@@ -4,7 +4,9 @@ node {
 	    checkout scm
     }
     stage ('Lint'){
-	sh ""
+	sh "grep -rIl '^#![[:blank:]]*/bin/\(bash\|sh\|zsh\)' --exclude-dir=.git --exclude=*.sw? | xargs shellcheck"
+	sh "find . -type f -iname '*.yaml' -exec yamllint {} \;"
+	# Add dockerfile and Jenkinsfile link checks
     }
     stage('Checkout and Install Magento to Kubernetes') {
         // Clean up anything in the namespace

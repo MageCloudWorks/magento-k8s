@@ -1,8 +1,4 @@
 #!/bin/bash 
-# Work around for microk8s
-shopt -s expand_aliases
-source ~/.bash_aliases
-
 kubectl create namespace magento
 kubectl apply -f k8s/apache.yaml
 kubectl apply -f k8s/mariadb.yaml
