@@ -19,14 +19,14 @@ spec:
         - image: mariadb:10.4
           name: mariadb
           env:
-        - name: MARIADB_USER
-          value: "exmaple-user"
-        - name: MARIADB_PASSWORD
-          value: "my_cool_secret"
-        - name: MARIADB_ROOT_PASSWORD
-          value: "my_super_secret"
-        - name: MARIADB_DATABASE
-          value: "magento"
+            - name: MARIADB_USER
+              value: "exmaple-user"
+            - name: MARIADB_PASSWORD
+              value: "my_cool_secret"
+            - name: MARIADB_ROOT_PASSWORD
+              value: "my_super_secret"
+            - name: MARIADB_DATABASE
+              value: "magento"
           ports:
             - containerPort: 3306
               protocol: TCP

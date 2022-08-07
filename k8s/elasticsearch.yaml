@@ -20,7 +20,7 @@ spec:
           name: elasticsearch
           env:
             - name: "discovery.type"
-          value: "single-node"
+              value: "single-node"
           ports:
             - containerPort: 9200
               protocol: TCP
