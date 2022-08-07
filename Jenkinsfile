@@ -4,7 +4,7 @@ node {
 	    checkout scm
     }
     stage ('Lint'){
-	sh 'grep -rIl '\''^#![[:blank:]]*/bin/\(bash\|sh\|zsh\)'\'' --exclude-dir=.git --exclude=*.sw? | xargs shellcheck'
+	sh "grep -rIl "\'"^#![[:blank:]]*/bin/\(bash\|sh\|zsh\)"\'" --exclude-dir=.git --exclude=*.sw? | xargs shellcheck"
 	sh "find . -type f -iname '*.yaml' -exec yamllint {} \;"
 	# Add dockerfile and Jenkinsfile link checks
     }
