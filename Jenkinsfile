@@ -6,7 +6,7 @@ node {
     stage ('Lint'){
 	sh "find . -type f -iname '*.sh' | xargs shellcheck"
 	sh "find . -type f -iname '*.yaml' -exec yamllint {} \\;"
-	# Add dockerfile and Jenkinsfile link checks
+	// Add dockerfile and Jenkinsfile link checks
     }
     stage('Checkout and Install Magento to Kubernetes') {
         // Clean up anything in the namespace
