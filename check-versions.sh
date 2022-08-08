@@ -18,8 +18,14 @@ REDIS_VER=$(kubectl exec -n magento deployment/redis-session -it -- redis-server
 VARNISH_VER=$(kubectl exec -n magento deployment/varnish -it -- varnishd -V 2>&1  | head -1 |  awk '{print $2}' | cut -c10-12)
 APACHE_VER=$(kubectl exec -n magento deployment/apache -it -- apache2 -v | awk  '{print $3}' | cut -c8-10 | head -1)
 
+RETURN=0
+
 function check () {
-  echo "$1 $2 $3"
+  echo "$1  Required: $2 Installed: $3"
+  if [ "$2" !=  "$3" ]; then
+	echo "ERROR: incorrect version of $1 installed"
+	RETURN=1
+  fi
 }
 
 check "Composer" "$COMPOSER_REQ" "$COMPOSER_VER"
@@ -30,3 +36,5 @@ check "PHP" "$PHP_REQ" "$PHP_VER"
 check "Redis" "$REDIS_REQ" "$REDIS_VER"
 check "Varnish" "$VARNISH_REQ" "$VARNISH_VER"
 check "Apache" "$APACHE_REQ" "$APACHE_VER"
+
+exit $RETURN
