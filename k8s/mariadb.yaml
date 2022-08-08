@@ -32,7 +32,7 @@ spec:
               protocol: TCP
           resources:
             requests:
-            memory: 1Gi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
