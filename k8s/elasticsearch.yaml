@@ -16,7 +16,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-        - image: elasticsearch:7.17.2
+        - image: elasticsearch:7.16.3
           name: elasticsearch
           env:
             - name: "discovery.type"
