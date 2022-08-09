@@ -4,6 +4,7 @@ WORKDIR /var/www/html/pub
 
 ENV DEBIAN_FRONTEND noninteractive
 COPY magento2.conf /etc/apache2/sites-available/magento2.conf
+COPY patches /var/opt/
 
 # Add Sury Repo for PHP 8.1 support (https://packages.sury.org/php/README.txt)
 RUN apt-get update && apt-get install -y \

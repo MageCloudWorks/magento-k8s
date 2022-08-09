@@ -5,6 +5,9 @@ kubectl exec -n magento deployment/apache -it -- bash -c 'curl -L  https://githu
 kubectl exec -n magento deployment/apache -it -- chown -R www-data:www-data /var/www/html/ 
 kubectl exec -n magento deployment/apache -it -- sudo -u www-data composer -d/var/www/html install
 
+echo Patch Magento
+kubectl exec -n magento deployment/apache -it -- sudo -u www-data php patch /var/www/html/app/code/Magento/Tax/Test/Unit/Model/Calculation/UnitBaseCalculatorTest.php < /var/opt/patches/2.4.4-UnitBaseCalculatorTest.patch
+
 echo Run Magento install
 kubectl exec -n magento deployment/apache -it -- sudo -u www-data php /var/www/html/bin/magento setup:install  -v --db-host=mariadb --db-name=magento --db-user=root --db-password=my_super_secret --elasticsearch-host=elasticsearch --document-root-is-pub=true --use-rewrites=1 \
 --session-save redis \
